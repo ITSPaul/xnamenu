@@ -18,7 +18,9 @@ namespace MenuAssessment
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        string[] menuOptions = new string[] { "Play", "Character", "Exit" };
+        string[] menuOptions = new string[] { "  Play  ", "  Character  ", "  Exit " };
+        private Texture2D _txback;
+        private SpriteFont _font;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -46,7 +48,8 @@ namespace MenuAssessment
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            _txback = Content.Load<Texture2D>("parchmentBackground");
+            _font = Content.Load<SpriteFont>("message");
             // TODO: use this.Content to load your game content here
         }
 
@@ -82,7 +85,18 @@ namespace MenuAssessment
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            string str = "  This is the Item  ";
+            Vector2 strSize = _font.MeasureString(str);
+            Vector2 pos = new Vector2(100, 100);
+            Vector2 rectSize = new Vector2(strSize.X, strSize.Y) + new Vector2(20,strSize.Y);
+            Rectangle item = new Rectangle((int)pos.X, (int)pos.Y, (int)rectSize.X, (int)rectSize.Y);
+            Vector2 textPos = pos + new Vector2(rectSize.X - strSize.X,
+                                        rectSize.Y - strSize.Y) / 2;
 
+            spriteBatch.Begin();
+            spriteBatch.Draw(_txback, item, Color.White);
+            spriteBatch.DrawString(_font, str, textPos, Color.SaddleBrown);
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

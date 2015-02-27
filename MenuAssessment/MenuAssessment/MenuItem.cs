@@ -63,10 +63,16 @@ namespace MenuAssessment
             Vector2 textSize = font.MeasureString(_text);
             Vector2 textPos = _position + new Vector2(_tex.Width - textSize.X,
                                                     _tex.Height - textSize.Y) / 2;
+            Vector2 rectSize = new Vector2(textSize.X, textSize.Y) 
+                                        + new Vector2(20, 20); // border of 20 pixels
+            Rectangle itemBackHolder = 
+                new Rectangle((int)_position.X, (int)_position.Y, 
+                                (int)rectSize.X, (int)rectSize.Y);
+
             if(_selected)
-                sp.Draw(_stex, _position, Color.White);
+                sp.Draw(_stex, itemBackHolder, Color.White);
             else
-                sp.Draw(_tex, _position, Color.White);
+                sp.Draw(_tex, itemBackHolder, Color.White);
             sp.DrawString(font, _text, textPos, Color.White);
         }
     }
