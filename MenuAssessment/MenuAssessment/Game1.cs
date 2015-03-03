@@ -18,8 +18,10 @@ namespace MenuAssessment
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Rectangle _viewRect;
         string[] menuOptions = new string[] { "  Play  ", "  Character  ", "  Exit " };
-        private Texture2D _txback;
+        private Texture2D _txMenuBack;
+        private Texture2D _background;
         private SpriteFont _font;
         public Game1()
         {
@@ -38,6 +40,7 @@ namespace MenuAssessment
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            _viewRect = graphics.GraphicsDevice.Viewport.Bounds;
         }
 
         /// <summary>
@@ -48,7 +51,8 @@ namespace MenuAssessment
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _txback = Content.Load<Texture2D>("parchmentBackground");
+            _txMenuBack = Content.Load<Texture2D>("parchmentBackground");
+            _background = Content.Load<Texture2D>("photoShopButton");
             _font = Content.Load<SpriteFont>("message");
             // TODO: use this.Content to load your game content here
         }
@@ -94,7 +98,8 @@ namespace MenuAssessment
                                         rectSize.Y - strSize.Y) / 2;
 
             spriteBatch.Begin();
-            spriteBatch.Draw(_txback, item, Color.White);
+            spriteBatch.Draw(_background, _viewRect, Color.White);
+            spriteBatch.Draw(_txMenuBack, item, Color.White);
             spriteBatch.DrawString(_font, str, textPos, Color.SaddleBrown);
             spriteBatch.End();
             // TODO: Add your drawing code here
